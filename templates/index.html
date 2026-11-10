@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="search-box">
+    <form method="GET" action="/home">
+        <input type="text" name="search" placeholder="Search by name or material..." value="{{ query or '' }}">
+        <button type="submit" class="button">Search</button>
+        {% if query %}
+        <a href="/home" class="button" style="text-decoration: none; display: inline-block;">Clear</a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="products">
+    {% for p in products %}
+    <div class="card">
+        <img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }}" loading="lazy">
+
+        <h3>{{ p.name }}</h3>
+        <p><strong>₹ {{ p.price }}</strong></p>
+        <p>Material: {{ p.material }}</p>
+        <p>Eco Score: <span class="grade-{{ p.eco_grade }}">{{ p.eco_score }}/100 (Grade {{ p.eco_grade }})</span></p>
+
+        <a href="/add/{{ p.id }}" class="add-cart-btn">Add to Cart</a>
+    </div>
+    {% else %}
+    <p>No products found matching "{{ query }}".</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

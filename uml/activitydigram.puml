@@ -1,0 +1,51 @@
+@startuml
+title Activity Diagram - E-commerce Application
+
+|User|
+start
+:Login;
+:Browse Products;
+
+fork
+  :View Product Details;
+fork again
+  :View Eco Score;
+end fork
+
+:Select Product;
+:Add to Cart;
+
+|System|
+:Update Cart;
+
+|User|
+:View Cart;
+
+if (Modify Cart?) then (Yes)
+  :Increase / Decrease Quantity;
+  :Remove Item;
+endif
+
+:Proceed to Payment;
+
+|System|
+fork
+  :Process Payment;
+fork again
+  :Validate Payment;
+end fork
+
+if (Payment Successful?) then (Yes)
+  :Clear Cart;
+  :Generate Confirmation;
+  |User|
+  :View Thank You / Feedback Page;
+else (No)
+  :Show Payment Error;
+  |User|
+  :Retry Payment;
+endif
+
+:Logout;
+stop
+@enduml

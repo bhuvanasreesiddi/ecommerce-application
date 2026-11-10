@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="cart-title">🛒 Your Shopping Cart</h2>
+
+{% if cart %}
+
+<table class="cart-table">
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+
+    {% for item in cart %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>₹ {{ item.price }}</td>
+        <td>
+            <a href="/decrease/{{ item.id }}" class="qty-btn">-</a>
+            <span class="qty">{{ item.quantity }}</span>
+            <a href="/increase/{{ item.id }}" class="qty-btn">+</a>
+        </td>
+        <td>₹ {{ item.item_total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="cart-summary">
+    <h3>Total Amount: ₹ {{ total }}</h3>
+    <a href="/payment" class="proceed-btn">Proceed to Payment</a>
+</div>
+
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+
+{% endblock %}

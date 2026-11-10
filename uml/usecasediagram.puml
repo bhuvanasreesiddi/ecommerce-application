@@ -1,0 +1,43 @@
+@startuml
+left to right direction
+title E-commerce Application - Use Case Diagram
+
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor User
+actor System
+
+rectangle "E-commerce System" {
+
+  usecase "Register" as UC1
+  usecase "Login" as UC2
+  usecase "Browse Products" as UC3
+  usecase "Search Products" as UC4
+  usecase "View Product Details" as UC5
+  usecase "View Eco Score" as UC6
+  usecase "Add to Cart" as UC7
+  usecase "Update Cart Quantity" as UC8
+  usecase "Remove from Cart" as UC9
+  usecase "Proceed to Payment" as UC10
+  usecase "Make Dummy Payment" as UC11
+  usecase "View Thank You / Feedback Page" as UC12
+}
+
+' --- User interactions ---
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
+
+' --- System responsibilities ---
+System --> UC11
+System --> UC12
+
+@enduml

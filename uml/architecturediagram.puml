@@ -1,0 +1,43 @@
+@startuml
+title E-commerce Application Architecture
+
+top to bottom direction
+skinparam linetype ortho
+skinparam shadowing false
+skinparam nodesep 90
+skinparam ranksep 90
+skinparam ArrowThickness 0.7
+skinparam packageStyle rectangle
+
+actor User
+
+rectangle "User Interface" as UI
+rectangle "HTML Pages\n(index, login, register, cart, payment, thankyou)" as PAGES
+rectangle "Flask Application\n(app.py)" as APP
+rectangle "Routing and Request Handling" as ROUTE
+
+rectangle "Product Module" as PRODUCT
+rectangle "Eco Score Module" as ECO
+rectangle "Cart Module" as CART
+
+rectangle "Product Data\n(stored in code)" as DATA
+rectangle "Payment Page\n(dummy payment)" as PAYMENT
+rectangle "Thank You / Feedback Page" as THANKS
+
+User --> UI
+UI --> PAGES
+PAGES --> APP
+APP --> ROUTE
+
+ROUTE --> PRODUCT
+ROUTE --> ECO
+ROUTE --> CART
+
+PRODUCT --> DATA
+CART --> PAYMENT
+PAYMENT --> THANKS
+
+PRODUCT -[hidden]right- ECO
+ECO -[hidden]right- CART
+
+@enduml

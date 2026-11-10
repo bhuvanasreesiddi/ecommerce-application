@@ -1,0 +1,97 @@
+@startuml
+title E-commerce Application - Class Diagram 
+
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 55
+skinparam ranksep 70
+
+class FlaskApp {
+  + start()
+  + login()
+  + register()
+  + logout()
+  + home()
+  + add_to_cart(id)
+  + cart()
+  + increase(id)
+  + decrease(id)
+  + payment()
+  + thankyou()
+}
+
+class UserSession {
+  - userEmail : String
+  - cart : Dictionary
+  + login(email)
+  + register(email)
+  + logout()
+  + clearSession()
+}
+
+class Product {
+  - id : int
+  - name : String
+  - price : float
+  - material : String
+  - eco_score : int
+  - eco_grade : String
+  - image : String
+}
+
+class EcoScoreService {
+  + calculate_eco_score(material) : (score, grade)
+}
+
+class ProductCatalog {
+  - products : List<Product>
+  - materials : List<String>
+  + getAllProducts() : List<Product>
+  + searchProducts(query) : List<Product>
+  + getProductById(id) : Product
+}
+
+class Cart {
+  - items : Dictionary
+  + addItem(id)
+  + increaseQuantity(id)
+  + decreaseQuantity(id)
+  + removeItem(id)
+  + clearCart()
+  + getCartItems() : List<CartItem>
+  + getTotal() : float
+}
+
+class CartItem {
+  - productId : int
+  - name : String
+  - price : float
+  - quantity : int
+  - item_total : float
+}
+
+class Payment {
+  + processPayment()
+}
+
+class FeedbackPage {
+  + showThankYou()
+}
+
+FlaskApp --> UserSession : manages
+FlaskApp --> ProductCatalog : uses
+FlaskApp --> Cart : handles
+FlaskApp --> Payment : calls
+FlaskApp --> FeedbackPage : displays
+
+ProductCatalog --> Product : contains
+ProductCatalog --> EcoScoreService : uses
+Cart --> CartItem : contains
+CartItem --> Product : refers to
+UserSession --> Cart : stores
+Payment --> Cart : clears after payment
+Payment --> FeedbackPage : redirects to
+
+@enduml
